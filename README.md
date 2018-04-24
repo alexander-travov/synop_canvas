@@ -2,6 +2,6 @@
 
 ![SYNOP example](example.png)
 
-Draw SYNOP messages on canvas.
+Draw SYNOP messages on HTML canvas.
 
-Tilemaps from https://github.com/alexander-travov/synop_tilemap
+Tilemaps from https://github.com/alexander-travov/synop_tilemap.
