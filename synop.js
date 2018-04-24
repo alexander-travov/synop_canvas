@@ -150,6 +150,17 @@ function drawWTile(ctx, synop, W) {
     else drawGroupTile(ctx, W, synop[W])
 }
 
+function drawW1W2(ctx, synop) {
+    drawWTile(ctx, synop, 'W1')
+    var W1 = synop['W1']
+    var W2 = synop['W2']
+    if (W2 < W1) drawWTile(ctx, synop, 'W2')
+    else if (W2 === W1 && W1 > 2) {
+        // Sky can't be seen
+        drawTile(ctx, GROUP_DX['W2'], GROUP_DY['W2'], GROUP_NUM['N']+9)
+    }
+}
+
 function drawSynop(ctx, x, y, synop) {
     ctx.save()
 
@@ -161,7 +172,6 @@ function drawSynop(ctx, x, y, synop) {
     ctx.textBaseline = "top"
     ctx.textAlign = "end"
 
-    // Оперение скорости
     if (synop['ff'] != undefined && synop['dd'] != undefined)
         drawArrow(ctx, synop['ff'], synop['dd'])
 
@@ -171,15 +181,7 @@ function drawSynop(ctx, x, y, synop) {
         if (synop[g] != undefined) drawGroupTile(ctx, g, synop[g])
     }
 
-    // W1W2 Прошедшая погода КН-01 кт4561
-    var W1 = synop['W1']
-    var W2 = synop['W2']
-    drawWTile(ctx, synop, 'W1')
-    if (W2 < W1) drawWTile(ctx, synop, 'W2')
-    else if (W2 === W1 && W1 > 2) {
-        // Sky can't be seen
-        drawTile(ctx, GROUP_DX['W2'], GROUP_DY['W2'], GROUP_NUM['N']+9)
-    }
+    drawW1W2(ctx, synop)
 
     var textGroups = ["TTT", "TdTdTd", "VV", "PPP", "ppp", "Nh", "hshs"]
     for (var i = 0; i < textGroups.length; i++) {
