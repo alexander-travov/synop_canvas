@@ -143,13 +143,13 @@ function drawArrow(ctx, speed, direction) {
     ctx.restore()
 }
 
-// Прошедшая погода КН-01 кт4561
+// Past weather W1W2 code table 4561
 function drawWTile(ctx, synop, W) {
     if (synop[W] !== 3) drawGroupTile(ctx, W, synop[W])
     else {
         var TTT = synop['TTT']
-        if (TTT > 0) drawTile(ctx, GROUP_DX[W], GROUP_DY[W], 31) // Пылевая буря
-        else drawTile(ctx, GROUP_DX[W], GROUP_DY[W], 38) // Метель
+        if (TTT > 0) drawTile(ctx, GROUP_DX[W], GROUP_DY[W], 31) // Dust storm
+        else drawTile(ctx, GROUP_DX[W], GROUP_DY[W], 38) // Blizzard
     }
 }
 
@@ -179,7 +179,7 @@ function drawSynop(ctx, x, y, synop) {
     var W2 = synop['W2']
     drawWTile(ctx, synop, 'W1')
     if (W2 < W1) drawWTile(ctx, synop, 'W2')
-    else if (W2 === W1 && W1 > 2) drawTile(ctx, GROUP_DX['W2'], GROUP_DY['W2'], GROUP_NUM['N']+9) // Небо не видно
+    else if (W2 === W1 && W1 > 2) drawTile(ctx, GROUP_DX['W2'], GROUP_DY['W2'], GROUP_NUM['N']+9) // Sky can't be seen
 
     var textGroups = ["TTT", "TdTdTd", "VV", "PPP", "ppp", "Nh", "hshs"]
     for (var i = 0; i < textGroups.length; i++) {
@@ -191,9 +191,9 @@ function drawSynop(ctx, x, y, synop) {
 }
 
 Number.prototype.pad = function(size) {
-    var s = String(this);
-    while (s.length < (size || 2)) {s = "0" + s;}
-    return s;
+    var s = String(this)
+    while (s.length < (size || 2)) {s = "0" + s}
+    return s
 }
 
 function generateSynop() {
